@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Logo from "../../src/assets/image/Logo.png";
-import Video from "../../src/assets/image/Video.svg";
+import Video from "../../src/assets/image/video.svg";
 import { AiOutlineHome, AiOutlineClose } from "react-icons/ai";
 import { BiCameraMovie, BiLogOut } from "react-icons/bi";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
