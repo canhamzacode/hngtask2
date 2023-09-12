@@ -89,17 +89,13 @@ const Featured = () => {
 
     useEffect(() => {
         if (data) {
-            // Splice the first 10 results from data and set them in myMovies state
             const first10Movies = data.results.slice(0, 10);
             setMyMovies(first10Movies);
             console.log(myMovies);
         }
     }, [data])
 
-    const getGenreNameById = (genreId) => {
-        const genre = genreData.find((genre) => genre.id === genreId);
-        return genre ? genre.name : "Unknown";
-    };
+
     return (
         <div className='w-full px-[20px]  md:px-[64px] bg-white my-[40px] grid gap-[40px]'>
             <div className='flex items-center justify-between '>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from "../../src/assets/image/Logo.png";
 import Video from "../../src/assets/image/video.svg";
 import { AiOutlineHome, AiOutlineClose } from "react-icons/ai";
@@ -6,10 +6,17 @@ import { BiCameraMovie, BiLogOut } from "react-icons/bi";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { BsCalendarWeek } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useGetSpecificMovie } from '../hooks/useFetchData';
 
 const SpecificData = () => {
     const [navState, setNavState] = useState(false);
+    let { id } = useParams();
+    const { data, refetchData, error, isLoading } = useGetSpecificMovie(id)
+
+    useEffect(() => {
+        console.log(data);
+    }, [data])
 
     const toggle = () => {
         setNavState(!navState);
@@ -18,7 +25,7 @@ const SpecificData = () => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-[0.3fr,1fr] w-full h-[100vh] '>
             <div className={` ${navState ? "bg-[#c6c3c3] flex flex-col gap-[30px]" : "hidden"} md:flex md:flex-col gap-[25px] p-[20px] h-full w-[80%] md:w-[100%] overflow-y-auto  absolute top-0 left-0 md:relative z-10`}>
-                <div className='w-full p-[10px] bg-black hidden md:flex'>
+                <div className='w-full p-[10px] bg-black hidden md:flex rounded-lg'>
                     <div className='w-[100%]'>
                         <img src={Logo} alt="" className='w-full h-full' />
                     </div>
@@ -82,11 +89,11 @@ const SpecificData = () => {
                 <div className='flex md:hidden items-center'>
                     <FaBars size={30} onClick={toggle} />
                 </div>
-                <div className='w-full h-[500px] bg-red-400'>
-                    <img src={Video} alt="" className='w-full h-full' />
+                <div className='w-full  bg-red-400 rounded-2xl'>
+                    <img src={Video} alt="" className='w-full h-[400px] object-cover' />
                 </div>
-                <div className='w-full flex items-center justify-between'>
-                    <div className='flex items-center gap-[15px] flex-wrap '>
+                <div className='w-full flex items-center gap-x-[15px] gap-y-[10px] justify-between flex-wrap'>
+                    <div className='flex items-center gap-x-[15px] gap-y-[10px] flex-wrap '>
                         <p>
                             Top Gun: Maverick
                         </p>

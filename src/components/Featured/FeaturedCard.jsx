@@ -12,7 +12,7 @@ const FeaturedCard = ({ movie, genreData }) => {
     return (
         <div className='w-full relative grid gap-[10px]'>
             <Link to={`/${movie.id}`}>
-                <img src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} alt="" className='w-full h-[370px] object-cover' />
+                <img data-testid="movie-poster" src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} alt={`${movie?.title}`} className='w-full h-[370px] object-cover' />
             </Link>
             <div className='w-full absolute flex top-0 left-0 items-center justify-between p-[15px]'>
                 <button></button>
@@ -21,11 +21,11 @@ const FeaturedCard = ({ movie, genreData }) => {
                 </button>
             </div>
             <div className='w-full'>
-                <p className='text-[#9CA3AF]'>
-                    {`Release, ${movie.release_date.substring(0, 4)} `}
+                <p data-testid="movie-release-date" className='text-[#9CA3AF]'>
+                    {`Release Date (UTC): ${new Date(movie.release_date).toUTCString()}`}
                 </p>
                 <Link to={`/${movie.id}`}>
-                    <h3 className='text-[#111827] text-2xl'>
+                    <h3 data-testid="movie-title" className='text-[#111827] text-2xl'>
                         {movie?.original_title}
                     </h3>
                 </Link>
