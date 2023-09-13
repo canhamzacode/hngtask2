@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { AiFillPlayCircle } from "react-icons/ai"
 
-const Hero = () => {
+const Hero = ({ search, setSearch }) => {
+    useEffect(() => {
+        console.log(search);
+    }, [search])
+
     return (
         <div className='w-full h-[90vh] bg-black text-white overflow-x-hidden bg-cover bg-center ' style={{ backgroundImage: "url('https://wallpapercave.com/wp/wp1867321.jpg')" }} >
-            <NavBar />
+            <NavBar search={search} setSearch={setSearch} />
             <div className='px-[20px]  md:px-[64px] py-[60px] w-full max-w-[700px] grid gap-[25px]'>
                 <h1 className='text-4xl'>Joh Wick 3: Parabellum</h1>
                 <div className='flex gap-[25px]  w-full md:w-[60%] items-center'>

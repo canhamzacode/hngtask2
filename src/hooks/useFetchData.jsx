@@ -44,3 +44,18 @@ export const useGetGenere = () => {
     }
     return { data, refetchData, error, isLoading }
 }
+
+export const useSearch = (searchText) => {
+    const { data,
+        isLoading,
+        error,
+        refetch
+    } = useQuery(["movie"], async () => {
+        return await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&page=1&include_adult=false&query=${searchText}`).then((res) => res.data)
+    })
+    const refetchData = () => {
+        alert("Data Refetched")
+        refetch()
+    }
+    return { data, refetchData, error, isLoading }
+}

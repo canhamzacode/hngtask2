@@ -5,7 +5,7 @@ import { BiSearchAlt2 } from "react-icons/bi"
 import { Link, useNavigate } from 'react-router-dom'
 
 
-const NavBar = () => {
+const NavBar = ({ search, setSearch }) => {
     const [disableScroll, setDisableScroll] = useState(false);
     const [navState, setNavState] = useState(false)
     const toggle = () => {
@@ -45,7 +45,7 @@ const NavBar = () => {
                         </div>
                     )}
                     <div className={`flex items-center ${navState ? "w-full" : "w-[350px]"}  gap-[10px] border border-white rounded-sm`}>
-                        <input type="text" placeholder='Search...' className='w-full p-[10px] rounded-md bg-transparent outline-none' />
+                        <input type="text" placeholder='Search...' value={search} className='w-full p-[10px] rounded-md bg-transparent outline-none' onChange={(e) => setSearch(e.target.value)} />
                         <button>
                             <BiSearchAlt2 size={30} />
                         </button>

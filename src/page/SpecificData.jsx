@@ -13,6 +13,103 @@ const SpecificData = () => {
     const [navState, setNavState] = useState(false);
     let { id } = useParams();
     const { data, refetchData, error, isLoading } = useGetSpecificMovie(id)
+    const genreData = [
+        {
+            "id": 28,
+            "name": "Action"
+        },
+        {
+            "id": 12,
+            "name": "Adventure"
+        },
+        {
+            "id": 16,
+            "name": "Animation"
+        },
+        {
+            "id": 35,
+            "name": "Comedy"
+        },
+        {
+            "id": 80,
+            "name": "Crime"
+        },
+        {
+            "id": 99,
+            "name": "Documentary"
+        },
+        {
+            "id": 18,
+            "name": "Drama"
+        },
+        {
+            "id": 10751,
+            "name": "Family"
+        },
+        {
+            "id": 14,
+            "name": "Fantasy"
+        },
+        {
+            "id": 36,
+            "name": "History"
+        },
+        {
+            "id": 27,
+            "name": "Horror"
+        },
+        {
+            "id": 10402,
+            "name": "Music"
+        },
+        {
+            "id": 9648,
+            "name": "Mystery"
+        },
+        {
+            "id": 10749,
+            "name": "Romance"
+        },
+        {
+            "id": 878,
+            "name": "Science Fiction"
+        },
+        {
+            "id": 10770,
+            "name": "TV Movie"
+        },
+        {
+            "id": 53,
+            "name": "Thriller"
+        },
+        {
+            "id": 10752,
+            "name": "War"
+        },
+        {
+            "id": 37,
+            "name": "Western"
+        }
+    ]
+
+    const getGenreNameById = (genreId) => {
+        const genre = genreData.find((genre) => genre.id === genreId);
+        return genre ? genre.name : "Unknown";
+    };
+
+    function formatVoteCount(voteCount) {
+        if (typeof voteCount !== 'number') {
+            return 'N/A'; // Handle non-numeric or undefined values
+        }
+
+        if (voteCount >= 1000 && voteCount < 1000000) {
+            return `${(voteCount / 1000).toFixed(1)}k`;
+        } else if (voteCount >= 1000000) {
+            return `${(voteCount / 1000000).toFixed(1)}M`;
+        }
+
+        return voteCount.toString();
+    }
 
     useEffect(() => {
         console.log(data);
@@ -26,9 +123,11 @@ const SpecificData = () => {
         <div className='grid grid-cols-1 md:grid-cols-[0.3fr,1fr] w-full h-[100vh] '>
             <div className={` ${navState ? "bg-[#c6c3c3] flex flex-col gap-[30px]" : "hidden"} md:flex md:flex-col gap-[25px] p-[20px] h-full w-[80%] md:w-[100%] overflow-y-auto  absolute top-0 left-0 md:relative z-10`}>
                 <div className='w-full p-[10px] bg-black hidden md:flex rounded-lg'>
-                    <div className='w-[100%]'>
-                        <img src={Logo} alt="" className='w-full h-full' />
-                    </div>
+                    <Link to="/">
+                        <div className='w-[100%]'>
+                            <img src={Logo} alt="" className='w-full h-full' />
+                        </div>
+                    </Link>
                 </div>
                 {navState && (
                     <div className="flex justify-between items-center w-full md:hidden ">
@@ -49,7 +148,7 @@ const SpecificData = () => {
                             Home
                         </p>
                     </div>
-                    <div className='px-[15px] py-[20px] w-full bg-white border-r-black border-[2px] flex gap-[20px] items-center justify-center md:justify-start '>
+                    <div className='px-[15px] py-[20px] w-full bg-white border-r-[#BE123C] border-[3px] flex gap-[20px] items-center justify-center md:justify-start '>
                         <BiCameraMovie size={30} />
                         <p>
                             Movies
@@ -90,15 +189,15 @@ const SpecificData = () => {
                     <FaBars size={30} onClick={toggle} />
                 </div>
                 <div className='w-full  bg-red-400 rounded-2xl'>
-                    <img src={Video} alt="" className='w-full h-[400px] object-cover' />
+                    <img src={`https://image.tmdb.org/t/p/w500${data?.backdrop_path}`} alt="" className='w-full h-[400px] object-cover rounded-md' />
                 </div>
                 <div className='w-full flex items-center gap-x-[15px] gap-y-[10px] justify-between flex-wrap'>
                     <div className='flex items-center gap-x-[15px] gap-y-[10px] flex-wrap '>
                         <p>
-                            Top Gun: Maverick
+                            {data?.original_title}
                         </p>
                         <p>
-                            2022
+                            {data?.release_date?.substring(0, 4)}
                         </p>
                         <p>
                             PG-13
@@ -107,8 +206,9 @@ const SpecificData = () => {
                             2h 10m
                         </p>
                         <div className=' flex items-center gap-[15px]'>
-                            <button className='text-[#BE123C] p-[5px] bg-slate-100 rounded '>Action</button>
-                            <button className='text-[#BE123C] p-[5px] bg-slate-100 rounded'>Drama</button>
+                            {data?.genres?.map((genreId, index) => (
+                                <button key={index} className='text-[#BE123C] p-[5px] bg-slate-100 rounded '>{genreId.name}</button>
+                            ))}
                         </div>
                     </div>
                     <div className='flex items-center gap-[20px]'>
@@ -116,7 +216,7 @@ const SpecificData = () => {
                             ⭐
                         </p>
                         <p>
-                            8.85 <span className='text-gray-300'>| 350k</span>
+                            {data?.vote_average} <span className='text-gray-300'>| {formatVoteCount(data?.vote_count)}</span>
                         </p>
                     </div>
                 </div>
@@ -124,9 +224,9 @@ const SpecificData = () => {
                     <div className='flex flex-col gap-[20px]'>
                         <div className='flex flex-col gap-[20px]'>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit ducimus rerum quia! Tempora quis dolorum totam! Asperiores fuga repellendus voluptate sit harum dolore impedit, inventore provident vero suscipit eius tempora.
+                                {data?.overview}
                             </p>
-                            <p>
+                            {/* <p>
                                 Director : <span className='text-[#BE123C]'>Joseph Kosinic</span>
                             </p>
                             <p>
@@ -134,20 +234,19 @@ const SpecificData = () => {
                             </p>
                             <p>
                                 Stars : <span className='text-[#BE123C]'>Joseph Kosinic</span>
-                            </p>
+                            </p> */}
                         </div>
-                        <div className='w-full'>
-                            <button className='w-full p-[15px] bg-[#BE123C] rounded-lg'>See Showtimes</button>
+                        <div className='w-full flex gap-[15px] items-center'>
+                            {/* <button className='w-full p-[15px] bg-[#BE123C] rounded-lg'>See Showtimes</button> */}
+                            Production Countries:
+                            {data?.production_countries?.map((genreId, index) => (
+                                <button key={index} className='text-[#BE123C] p-[5px] bg-slate-100 rounded '>{genreId.name}</button>
+                            ))}
                         </div>
                     </div>
                     <div className='w-full flex flex-col gap-[15px]'>
-                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg'>See Showtimes</button>
-                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg'>More Watch Options</button>
-                        <div className='w-full grid grid-cols-3 gap-2'>
-                            <div className='h-[200px] bg-black'></div>
-                            <div className='h-[200px] bg-black'></div>
-                            <div className='h-[200px] bg-black'></div>
-                        </div>
+                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg text-white'>See Showtimes</button>
+                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg text-white'>More Watch Options</button>
                     </div>
                 </div>
             </div>

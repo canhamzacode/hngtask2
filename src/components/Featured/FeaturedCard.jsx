@@ -1,30 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Poster from "../../assets/image/Poster.svg"
 import { AiOutlineHeart } from "react-icons/ai"
 import { Link } from 'react-router-dom';
 
 const FeaturedCard = ({ movie, genreData }) => {
+    const [isClicked, setIsClicked] = useState(false);
     const getGenreNameById = (genreId) => {
         const genre = genreData.find((genre) => genre.id === genreId);
         return genre ? genre.name : "Unknown";
     };
+    const heart = () => {
+        setIsClicked(!isClicked);
+    }
+
+    const buttonStyle = {
+        backgroundColor: isClicked ? 'red' : 'transparent',
+        borderRadius: "50%"
+    };
 
     return (
-        <div className='w-full relative grid gap-[10px]'>
-            <Link to={`/${movie.id}`}>
+        <div data-testid="movie-card" className='w-full relative grid gap-[10px]'>
+            <Link to={`/movies/${movie.id}`}>
                 <img data-testid="movie-poster" src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} alt={`${movie?.title}`} className='w-full h-[370px] object-cover' />
             </Link>
             <div className='w-full absolute flex top-0 left-0 items-center justify-between p-[15px]'>
                 <button></button>
                 <button>
-                    <AiOutlineHeart size={30} className='text-white' />
+                    <AiOutlineHeart
+                        size={30}
+                        className='text-white'
+                        onClick={heart}
+                        style={buttonStyle}
+                    />
                 </button>
             </div>
             <div className='w-full'>
                 <p data-testid="movie-release-date" className='text-[#9CA3AF]'>
-                    {`Release Date (UTC): ${new Date(movie.release_date).toUTCString()}`}
+                    {`Release Date: ${new Date(movie.release_date).toISOString().split('T')[0]}`}
                 </p>
-                <Link to={`/${movie.id}`}>
+                <Link to={`/movies/${movie.id}`}>
                     <h3 data-testid="movie-title" className='text-[#111827] text-2xl'>
                         {movie?.original_title}
                     </h3>

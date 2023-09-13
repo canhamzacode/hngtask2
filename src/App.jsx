@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={""}>
           <Route index element={<Home />} />
-          <Route path="/:id" element={<SpecificData />} />
+          <Route path="/movies/:id" element={<SpecificData />} />
         </Route>
       </Routes>
     </QueryClientProvider>

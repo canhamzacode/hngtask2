@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { MdKeyboardArrowRight } from "react-icons/md"
 import FeaturedCard from './FeaturedCard'
-import { useGetTopData } from '../../hooks/useFetchData'
+import { useGetTopData, useSearch } from '../../hooks/useFetchData'
 import { Link } from 'react-router-dom'
 
-const Featured = () => {
+const Featured = ({ search }) => {
     const { data, refetchData, error, isLoading } = useGetTopData()
+
+    const { data: searchData } = useSearch(search)
     const [myMovies, setMyMovies] = useState([]);
-    const [genreData, setGenreData] = useState([
+    const genreData = [
         {
             "id": 28,
             "name": "Action"
@@ -84,14 +86,13 @@ const Featured = () => {
             "id": 37,
             "name": "Western"
         }
-    ])
+    ]
 
 
     useEffect(() => {
         if (data) {
-            const first10Movies = data.results.slice(0, 10);
+            const first10Movies = data?.results?.slice(1, 11);
             setMyMovies(first10Movies);
-            console.log(myMovies);
         }
     }, [data])
 
@@ -109,6 +110,7 @@ const Featured = () => {
             </div>
             <div className='w-full grid grid-cols-1 md:grid-cols-3 gap-x-[20px] gap-y-[40px] '>
                 {isLoading ? "Loading..." : ""}
+                {error ? error.message : ""}
                 {myMovies?.map((movie, id) => (
                     <FeaturedCard
                         key={id}
