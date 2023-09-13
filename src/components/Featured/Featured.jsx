@@ -110,7 +110,7 @@ const Featured = ({ search }) => {
 
     return (
         <div className="w-full px-[20px] md:px-[64px] bg-white my-[40px] grid gap-[40px]">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap">
                 <p className="text-3xl">
                     {search ? `Search Result for: ${search}` : 'Featured Movies'}
                 </p>
