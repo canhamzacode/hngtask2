@@ -19,9 +19,11 @@ const FeaturedCard = ({ movie, genreData }) => {
     };
 
     return (
-        <div data-testid="movie-card" className='w-full relative grid gap-[10px]'>
+        <div data-testid="movie-card" className='w-full relative grid gap-[10px] '>
             <Link to={`/movies/${movie.id}`}>
-                <img data-testid="movie-poster" src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} alt={`${movie?.title}`} className='w-full h-[370px] object-cover' />
+                <div className='w-full'>
+                    <img data-testid="movie-poster" src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} alt={`${movie?.title}`} className='w-full h-[370px] object-cover' />
+                </div>
             </Link>
             <div className='w-full absolute flex top-0 left-0 items-center justify-between p-[15px]'>
                 <button></button>
@@ -36,7 +38,7 @@ const FeaturedCard = ({ movie, genreData }) => {
             </div>
             <div className='w-full'>
                 <p data-testid="movie-release-date" className='text-[#9CA3AF]'>
-                    {`Release Date: ${new Date(movie.release_date).toISOString().split('T')[0]}`}
+                    {/* {`Release Date: ${new Date(movie?.release_date).toISOString().split('T')[0]}`} */}
                 </p>
                 <Link to={`/movies/${movie.id}`}>
                     <h3 data-testid="movie-title" className='text-[#111827] text-2xl'>
@@ -49,10 +51,10 @@ const FeaturedCard = ({ movie, genreData }) => {
                     IMDB
                 </div>
                 <p>
-                    {movie?.vote_average * 10} / 100
+                    {`${(movie?.vote_average * 10 / 100).toFixed(2)} / 100`}
                 </p>
                 <div>
-                    🍅 {movie?.vote_average * 10}%
+                    {`🍅 ${(movie?.vote_average * 10).toFixed(2)}%`}
                 </div>
             </div>
             <p className='text-[#9CA3AF]'>

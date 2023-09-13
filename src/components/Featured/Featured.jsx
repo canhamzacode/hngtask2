@@ -89,6 +89,7 @@ const Featured = ({ search }) => {
     ]
 
     useEffect(() => {
+        console.log(searchData);
         if (search && searchData) {
             // Update myMovies with search results when there is a search query
             setMyMovies(searchData.results);
@@ -120,10 +121,14 @@ const Featured = ({ search }) => {
             <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-x-[20px] gap-y-[40px]">
                 {searchLoading || topLoading ? 'Loading...' : ''}
                 {searchError || topError ? (searchError || topError).message : ''}
+
                 {myMovies?.map((movie, id) => (
-                    <FeaturedCard key={id} movie={movie} genreData={genreData} />
+                    <div key={id} className="relative">
+                        <FeaturedCard movie={movie} genreData={genreData} />
+                    </div>
                 ))}
             </div>
+
         </div>
     );
 };
