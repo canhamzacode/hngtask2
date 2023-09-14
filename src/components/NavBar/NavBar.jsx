@@ -34,8 +34,8 @@ const NavBar = ({ search, setSearch }) => {
     }, [disableScroll]);
 
     return (
-        <div className="w-full flex px-[20px] md:px-[64px] py-[20px] justify-between items-center">
-            <Link to="/">
+        <div className="w-full flex px-[20px] md:px-[64px] py-[20px] justify-between items-center z-10">
+            <Link to="/" className='z-10'>
                 <div className="w-[180px] md:w-[200px] h-[40px] md:h-[60px]">
                     <img src={Logo} alt="" className="w-full h-full" />
                 </div>
@@ -79,7 +79,7 @@ const NavBar = ({ search, setSearch }) => {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center gap-[20px]">
+            <div className="flex items-center gap-[20px] z-10">
                 <p>Login</p>
                 <div className="flex cursor-pointer" onClick={toggle}>
                     <AiOutlineMenu size={30} />

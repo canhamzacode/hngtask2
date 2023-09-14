@@ -51,7 +51,7 @@ const FeaturedCard = ({ movie, genreData }) => {
                     IMDB
                 </div>
                 <p>
-                    {`${(movie?.vote_average * 10 / 100).toFixed(2)} / 100`}
+                    {`${(movie?.vote_average * 1000 / 100).toFixed(0)} / 100`}
                 </p>
                 <div>
                     {`🍅 ${(movie?.vote_average * 10).toFixed(2)}%`}
