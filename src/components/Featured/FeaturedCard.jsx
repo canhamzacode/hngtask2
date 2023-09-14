@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import Poster from "../../assets/image/Poster.svg"
 import { AiOutlineHeart } from "react-icons/ai"
 import { Link } from 'react-router-dom';
 
 const FeaturedCard = ({ movie, genreData }) => {
     const [isClicked, setIsClicked] = useState(false);
+
     const getGenreNameById = (genreId) => {
         const genre = genreData.find((genre) => genre.id === genreId);
         return genre ? genre.name : "Unknown";
     };
+
     const heart = () => {
         setIsClicked(!isClicked);
     }
@@ -37,14 +38,14 @@ const FeaturedCard = ({ movie, genreData }) => {
                 </button>
             </div>
             <div className='w-full'>
-                <p data-testid="movie-release-date" className='text-[#9CA3AF]'>
-                    {/* {`Release Date: ${new Date(movie?.release_date).toISOString().split('T')[0]}`} */}
-                </p>
                 <Link to={`/movies/${movie.id}`}>
                     <h3 data-testid="movie-title" className='text-[#111827] text-2xl'>
                         {movie?.original_title}
                     </h3>
                 </Link>
+                <p data-testid="movie-release-date" className='text-[#9CA3AF]'>
+                    {movie?.release_date ? `${new Date(movie?.release_date).toISOString().split('T')[0]}` : 'Release Date: N/A'}
+                </p>
             </div>
             <div className='flex gap-[25px] w-full items-center'>
                 <div className='bg-[#ff9500] text-black p-[5px]'>

@@ -27,7 +27,7 @@ const Hero = ({ search, setSearch }) => {
     }, [topData]);
 
     return (
-        <div className='w-full h-[90vh] relative  text-white'>
+        <div className='w-full min-h-[90vh] relative  text-white'>
             {/* Background Image */}
             <div
                 className='absolute inset-0'
@@ -42,7 +42,7 @@ const Hero = ({ search, setSearch }) => {
             <div className='absolute inset-0 bg-black opacity-50'></div>
             {/* Content */}
             <NavBar search={search} setSearch={setSearch} />
-            <div className='px-[20px] md:px-[64px] py-[60px] w-full max-w-[700px] grid gap-[25px] relative z-10'>
+            <div className='px-[20px] md:px-[64px] py-[60px] w-full max-w-[700px] grid gap-[25px] relative z-[8]'>
                 <h1 className='text-4xl'>{randomData?.title}</h1>
                 <div className='flex gap-[25px] w-full md:w-[60%] items-center'>
                     <div className='bg-[#ff9500] text-black p-[10px]'>
