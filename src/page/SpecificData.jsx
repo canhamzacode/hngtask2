@@ -188,26 +188,32 @@ const SpecificData = () => {
                 <div className='flex md:hidden items-center'>
                     <FaBars size={30} onClick={toggle} />
                 </div>
-                <div className='w-full  bg-red-400 rounded-2xl'>
-                    <img src={`https://image.tmdb.org/t/p/w500${data?.backdrop_path}`} alt="" className='w-full h-[400px] object-cover rounded-md' />
+                <div className='w-full bg-red-400 rounded-2xl'>
+                    <img
+                        src={`https://image.tmdb.org/t/p/w500${data?.backdrop_path}`}
+                        alt=""
+                        className='w-full h-[400px] object-cover rounded-md'
+                    />
                 </div>
                 <div className='w-full flex items-center gap-x-[15px] gap-y-[10px] justify-between flex-wrap'>
                     <div className='flex items-center gap-x-[15px] gap-y-[10px] flex-wrap '>
-                        <p>
+                        <p data-testid="movie-title">
                             {data?.original_title}
                         </p>
-                        <p>
-                            {data?.release_date?.substring(0, 4)}
+                        <p data-testid="movie-release-date">
+                            {data?.release_date}
                         </p>
                         <p>
                             PG-13
                         </p>
-                        <p>
-                            2h 10m
+                        <p data-testid="movie-runtime">
+                            {data?.runtime}
                         </p>
-                        <div className=' flex items-center gap-[15px]'>
+                        <div className='flex items-center gap-[15px]'>
                             {data?.genres?.map((genreId, index) => (
-                                <button key={index} className='text-[#BE123C] p-[5px] bg-slate-100 rounded '>{genreId.name}</button>
+                                <button key={index} className='text-[#BE123C] p-[5px] bg-slate-100 rounded '>
+                                    {genreId.name}
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -223,33 +229,31 @@ const SpecificData = () => {
                 <div className='w-full grid grid-cols-1 md:grid-cols-[1fr,0.4fr] gap-[20px] '>
                     <div className='flex flex-col gap-[20px]'>
                         <div className='flex flex-col gap-[20px]'>
-                            <p>
+                            <p data-testid="movie-overview">
                                 {data?.overview}
                             </p>
-                            {/* <p>
-                                Director : <span className='text-[#BE123C]'>Joseph Kosinic</span>
-                            </p>
-                            <p>
-                                Writers : <span className='text-[#BE123C]'>Joseph Kosinic</span>
-                            </p>
-                            <p>
-                                Stars : <span className='text-[#BE123C]'>Joseph Kosinic</span>
-                            </p> */}
+                            {/* Additional movie details (director, writers, stars) can be added here if needed */}
                         </div>
                         <div className='w-full flex gap-[15px] items-center'>
-                            {/* <button className='w-full p-[15px] bg-[#BE123C] rounded-lg'>See Showtimes</button> */}
                             Production Countries:
                             {data?.production_countries?.map((genreId, index) => (
-                                <button key={index} className='text-[#BE123C] p-[5px] bg-slate-100 rounded '>{genreId.name}</button>
+                                <button key={index} className='text-[#BE123C] p-[5px] bg-slate-100 rounded '>
+                                    {genreId.name}
+                                </button>
                             ))}
                         </div>
                     </div>
                     <div className='w-full flex flex-col gap-[15px]'>
-                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg text-white'>See Showtimes</button>
-                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg text-white'>More Watch Options</button>
+                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg text-white'>
+                            See Showtimes
+                        </button>
+                        <button className='w-full p-[15px] bg-[#BE123C] rounded-lg text-white'>
+                            More Watch Options
+                        </button>
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }
